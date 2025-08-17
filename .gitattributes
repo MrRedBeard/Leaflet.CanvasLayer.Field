@@ -1,9 +1,0 @@
-# Raster formats
-*.asc binary
-*.tif binary
-*.tiff binary
-*.nc binary
-
-# Graphics
-*.png binary
-*.gif binary
