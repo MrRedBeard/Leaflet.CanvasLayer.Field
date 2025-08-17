@@ -1,4 +1,19 @@
 import Field from './Field';
+import * as d3 from 'd3';
+import { fromUrl, fromArrayBuffer } from 'geotiff';
+import { parse as parseGeoTIFF } from 'geotiff';
+
+/** @param {string|ArrayBuffer} input */
+export async function readGeoTIFF(input)
+{
+  const tiff  = typeof input === 'string' ? await fromUrl(input) : await fromArrayBuffer(input);
+  const image = await tiff.getImage();
+  const rasters = await image.readRasters({ interleave: false }); // Float32Array[] or similar
+  const width = image.getWidth();
+  const height = image.getHeight();
+  const bbox = image.getBoundingBox(); // [minX, minY, maxX, maxY]
+  return { rasters, width, height, bbox, image };
+}
 
 /**
  * Scalar Field
@@ -95,7 +110,16 @@ export default class ScalarField extends Field {
     static multipleFromGeoTIFF(data, bandIndexes) {
     //console.time('ScalarField from GeoTIFF');
 
-        let tiff = GeoTIFF.parse(data); // geotiff.js
+        //let tiff = GeoTIFF.parse(data); // geotiff.js
+        
+        // ensure ArrayBuffer
+        const buf = (data instanceof ArrayBuffer)
+          ? data
+          : (data?.buffer instanceof ArrayBuffer ? data.buffer : new Uint8Array(data).buffer);
+         
+        const tiff = fromArrayBuffer(buf);       // or: await fromUrl(url) / fromBlob(blob)
+
+
         let image = tiff.getImage();
         let rasters = image.readRasters();
         let tiepoint = image.getTiePoints()[0];

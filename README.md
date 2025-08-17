@@ -1,3 +1,41 @@
+# LeafletCanvasLayerField - leaflet.canvaslayer.field
+
+## Usage
+
+### iife
+```js
+<script src="https://unpkg.com/leaflet/dist/leaflet.js"></script>
+<script src="/dist/leaflet-canvas-field.iife.js"></script>
+<script>
+  const layer = new L.CanvasLayer.FieldClass(myField, { opacity: 0.8 });
+  map.addLayer(layer);
+</script>
+```
+
+
+### esm
+```js
+import L from 'leaflet';
+import CanvasFieldLayer from 'leaflet-canvas-field';
+
+const layer = new CanvasFieldLayer(myField, { opacity: 0.8 });
+layer.setMouseMoveCursor({ value: 'crosshair' });
+L.map('map').addLayer(layer);
+```
+
+
+## Development
+```
+npm run build
+```
+
+
+---
+
+***********************************************
+
+---
+
 # IH.Leaflet.CanvasLayer.Field
 A plugin for [LeafletJS](http://www.leafletjs.com) that adds layers to visualize fields (*aka* **Rasters**) from ASCIIGrid or GeoTIFF files (EPSG:4326). 
 

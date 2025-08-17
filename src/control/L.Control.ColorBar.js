@@ -1,3 +1,5 @@
+import * as d3 from 'd3';
+
 /**
  *   Control for a simple legend with a colorbar
  *   References:

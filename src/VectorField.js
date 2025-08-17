@@ -1,6 +1,7 @@
 import Vector from './Vector';
 import Field from './Field';
 import ScalarField from './ScalarField';
+import * as d3 from 'd3';
 
 /**
  *  A set of vectors assigned to a regular 2D-grid (lon-lat)
